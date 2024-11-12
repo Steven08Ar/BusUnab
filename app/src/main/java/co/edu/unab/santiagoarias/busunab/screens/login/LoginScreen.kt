@@ -20,7 +20,7 @@ import com.google.firebase.auth.FirebaseAuth
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(
-    onNavigateBack: () -> Unit,
+    onNavigateBack: () -> Unit,aaaa
     onRegisterClick: () -> Unit,
     onLoginSuccess: () -> Unit // Nueva función para navegar al éxito del login
 ) {
