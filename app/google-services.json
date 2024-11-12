@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "963608494487",
+    "project_id": "bus-unab-e1b9e",
+    "storage_bucket": "bus-unab-e1b9e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:963608494487:android:2adb93e3826b4c505344d2",
+        "android_client_info": {
+          "package_name": "co.edu.unab.santiagoarias.busunab"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBy4EHGjR-XMJ_UNWJKhst7GBASTn-pnic"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
