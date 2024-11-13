@@ -55,6 +55,15 @@ fun RouteOne(onReady: (GoogleMap) -> Unit) {
                 getMapAsync { googleMap ->
                     val zoomLevel = 15f
                     val unab = LatLng(7.116816, -73.105240)
+                    val puenteUnab = LatLng(7.116832491307159, -73.10436903333576)
+                    val csu = LatLng(7.11261930192156, -73.10537010648864)
+                    val terraOne = LatLng(7.110894390437146, -73.10605202274883)
+                    val terraTwo = LatLng(7.109698512210283, -73.10541800664015)
+                    val clinicaBga = LatLng(7.110909120332861, -73.10997509015263)
+                    val gratamira = LatLng(7.115523012222855, -73.11084366726257)
+                    val sanPio = LatLng(7.118520445030375, -73.11126629280423)
+                    val casona = LatLng(7.121234415427968, -73.11103005907758)
+                    val arturoCalle = LatLng(7.115639606078648, -73.10773895309947)
 
                     googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(unab, zoomLevel))
 
@@ -63,6 +72,60 @@ fun RouteOne(onReady: (GoogleMap) -> Unit) {
                             .position(unab)
                             .title("UNAB")
                             .snippet("En la UUU")
+                    )
+                    googleMap.addMarker(
+                        MarkerOptions()
+                            .position(puenteUnab)
+                            .title("Parada 1")
+                            .snippet("Puente peatonal UNAB")
+                    )
+                    googleMap.addMarker(
+                        MarkerOptions()
+                            .position(csu)
+                            .title("Parada 2")
+                            .snippet("Centro de Servicios Universitarios")
+                    )
+                    googleMap.addMarker(
+                        MarkerOptions()
+                            .position(terraOne)
+                            .title("Parada 3")
+                            .snippet("Calle 45 con Cra. 55")
+                    )
+                    googleMap.addMarker(
+                        MarkerOptions()
+                            .position(terraTwo)
+                            .title("Parada 4")
+                            .snippet("Calle 56 con Cra. 46")
+                    )
+                    googleMap.addMarker(
+                        MarkerOptions()
+                            .position(clinicaBga)
+                            .title("Parada 5")
+                            .snippet("Clínica Bucaramanga")
+                    )
+                    googleMap.addMarker(
+                        MarkerOptions()
+                            .position(gratamira)
+                            .title("Parada 6")
+                            .snippet("Gratamira")
+                    )
+                    googleMap.addMarker(
+                        MarkerOptions()
+                            .position(sanPio)
+                            .title("Parada 7")
+                            .snippet("Parque San Pio")
+                    )
+                    googleMap.addMarker(
+                        MarkerOptions()
+                            .position(casona)
+                            .title("Parada 8")
+                            .snippet("Campus Rafael Ardila Duarte")
+                    )
+                    googleMap.addMarker(
+                        MarkerOptions()
+                            .position(arturoCalle)
+                            .title("Parada 9")
+                            .snippet("Arturo Calle")
                     )
                     onReady(googleMap)
                 }

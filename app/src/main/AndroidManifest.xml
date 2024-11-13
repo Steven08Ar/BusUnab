@@ -17,11 +17,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BusUnab"
         tools:targetApi="31">
-
+        <meta-data
+            android:name="com.google.android.actions"
+            android:resource="@xml/actions" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBNOj87_sXCwM_KH5zvHyvAzUbydpXD23k"
-            />
+            android:value="AIzaSyBNOj87_sXCwM_KH5zvHyvAzUbydpXD23k" />
 
         <activity
             android:name=".MainActivity"
@@ -34,6 +35,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

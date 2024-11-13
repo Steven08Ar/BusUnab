@@ -130,7 +130,7 @@ fun RegisterScreen(navController: NavController, onNavigateBack: () -> Unit) {
                             if (task.isSuccessful) {
                                 val user = auth.currentUser
                                 user?.let {
-                                    val newUser = mapOf("email" to email)
+                                    val newUser = mapOf("email" to email, "userId" to user.uid)
                                     db.collection("users").document(user.uid).set(newUser)
                                         .addOnSuccessListener {
                                             Toast.makeText(

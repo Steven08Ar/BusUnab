@@ -5,4 +5,4 @@ enum class Screens {
     LoginScreen,
     HomeScreen, }
 
-data class User(val emailc: String = "", val password: String = "")
+data class User(val emailc: String = "", val password: String = "", val userId: String = "")

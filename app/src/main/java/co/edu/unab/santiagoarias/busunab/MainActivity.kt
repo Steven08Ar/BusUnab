@@ -7,6 +7,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -45,10 +46,10 @@ class MainActivity : ComponentActivity() {
                             TopAppBar(
                                 title = { Text("Bus UNAB") },
                                 actions = {
-                                    Box {
+                                    Box() {
                                         IconButton(onClick = { expanded = true }) {
                                             Icon(
-                                                painter = painterResource(id = R.drawable.logo_unab),
+                                                painter = painterResource(id = R.drawable.menu),
                                                 contentDescription = "Perfil",
                                                 tint = Color.White
                                             )
@@ -58,10 +59,21 @@ class MainActivity : ComponentActivity() {
                                             onDismissRequest = { expanded = false }
                                         ) {
                                             DropdownMenuItem(
-                                                text = { Text("Perfil") },
-                                                onClick = {
-                                                    expanded = false
-                                                }
+                                                text = {
+                                                    Button(
+                                                        onClick = {
+                                                            navController.navigate("qr_image") {
+                                                            }
+                                                        },
+                                                        modifier = Modifier.fillMaxWidth(),
+                                                        colors = ButtonDefaults.buttonColors(
+                                                            containerColor = Color(0xFF4942CE)
+                                                        )
+                                                    ) {
+                                                        Text(text = "Código QR")
+                                                    }
+                                                },
+                                                onClick = {}
                                             )
                                             DropdownMenuItem(
                                                 text = {

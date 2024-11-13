@@ -1,6 +1,8 @@
 [versions]
 agp = "8.5.1"
 coilComposeVersion = "2.1.0"
+core = "3.5.1"
+coreVersion = "3.5.0"
 googlePlayServicesMaps = "18.0.0"
 kotlin = "1.9.0"
 coreKtx = "1.15.0"
@@ -17,11 +19,16 @@ navigationCompose = "2.8.3"
 playServicesMaps = "19.0.0"
 playServicesMapsVersion = "18.1.0"
 firebaseFirestoreKtx = "25.1.1"
+qrgenearator = "1.0.0"
+zxingAndroidEmbedded = "4.3.0"
+appcompat = "1.7.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 coil-gif = { module = "io.coil-kt:coil-gif", version.ref = "coilComposeVersion" }
 coil-kt-coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilComposeVersion" }
+core = { module = "com.google.zxing:core", version.ref = "core" }
+core-v350 = { module = "com.google.zxing:core", version.ref = "coreVersion" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -43,6 +50,10 @@ play-services-maps = { module = "com.google.android.gms:play-services-maps", ver
 play-services-maps-v1800 = { module = "com.google.android.gms:play-services-maps", version.ref = "googlePlayServicesMaps" }
 play-services-maps-v1810 = { module = "com.google.android.gms:play-services-maps", version.ref = "playServicesMapsVersion" }
 firebase-firestore-ktx = { group = "com.google.firebase", name = "firebase-firestore-ktx", version.ref = "firebaseFirestoreKtx" }
+qrgenearator = { module = "androidmads.library.qrgenearator:QRGenearator", version.ref = "qrgenearator" }
+zxing-android-embedded = { module = "com.journeyapps:zxing-android-embedded", version.ref = "zxingAndroidEmbedded" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+zxing-qr-code = { module = "com.google.zxing:zxing-qr-code", version.ref = "coreVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
