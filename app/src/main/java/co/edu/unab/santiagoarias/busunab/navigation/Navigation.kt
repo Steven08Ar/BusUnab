@@ -8,27 +8,34 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import co.edu.unab.santiagoarias.busunab.screens.SplashScreen
-import co.edu.unab.santiagoarias.busunab.screens.home.Home
+import co.edu.unab.santiagoarias.busunab.screens.home.HomeScreen
+
 
 import co.edu.unab.santiagoarias.busunab.screens.login.LoginScreen
+import co.edu.unab.santiagoarias.busunab.screens.login.RecoverScreen
+import co.edu.unab.santiagoarias.busunab.screens.register.RegisterScreen
+import co.edu.unab.santiagoarias.busunab.screens.routes.RouteOne
 
 @Composable
 fun Navigation(){
-    val navController = rememberNavController()
+    var navController = rememberNavController()
     NavHost(navController = navController,
         startDestination = Screens.SplashScreen.name
     ){
-        composable(Screens.SplashScreen.name){
-            SplashScreen(navController = navController)
+        composable("splash_screen") { SplashScreen(navController) }
+        composable("login_screen") {
+            LoginScreen(
+                navController = navController,
+                onNavigateBack = { navController.popBackStack() },
+                onRegisterClick = { navController.navigate("register_screen") },
+                onLoginSuccess = { navController.navigate("home_screen") }
+            )
         }
-
-        composable(Screens.LoginScreen.name){
-            LoginScreen()
-        }
-
-        composable(Screens.HomeScreen.name){
-            Home(navController = navController)
-        }
-
+        composable("register_screen") { RegisterScreen(
+            navController = navController, onNavigateBack = { navController.popBackStack() }) }
+        composable("recover_screen") { RecoverScreen(navController) }
+        composable("home_screen") { HomeScreen(navController) }
+        composable("routeone_screen") { RouteOne(onReady = { googleMap -> }) }
+        composable("routetwo_screen") { RouteOne(onReady = { googleMap -> }) }
     }
 }

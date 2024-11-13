@@ -1,6 +1,7 @@
 [versions]
 agp = "8.5.1"
 coilComposeVersion = "2.1.0"
+googlePlayServicesMaps = "18.0.0"
 kotlin = "1.9.0"
 coreKtx = "1.15.0"
 junit = "4.13.2"
@@ -10,9 +11,12 @@ lifecycleRuntimeKtx = "2.8.7"
 activityCompose = "1.9.3"
 composeBom = "2024.04.01"
 mapsCompose = "1.0.0"
+mapsComposeVersion = "2.4.1"
 navigationRuntimeKtx = "2.8.3"
 navigationCompose = "2.8.3"
 playServicesMaps = "19.0.0"
+playServicesMapsVersion = "18.1.0"
+firebaseFirestoreKtx = "25.1.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -34,7 +38,11 @@ androidx-material3 = { group = "androidx.compose.material3", name = "material3" 
 androidx-navigation-runtime-ktx = { group = "androidx.navigation", name = "navigation-runtime-ktx", version.ref = "navigationRuntimeKtx" }
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
 maps-compose = { module = "com.google.maps.android:maps-compose", version.ref = "mapsCompose" }
+maps-compose-v241 = { module = "com.google.maps.android:maps-compose", version.ref = "mapsComposeVersion" }
 play-services-maps = { module = "com.google.android.gms:play-services-maps", version.ref = "playServicesMaps" }
+play-services-maps-v1800 = { module = "com.google.android.gms:play-services-maps", version.ref = "googlePlayServicesMaps" }
+play-services-maps-v1810 = { module = "com.google.android.gms:play-services-maps", version.ref = "playServicesMapsVersion" }
+firebase-firestore-ktx = { group = "com.google.firebase", name = "firebase-firestore-ktx", version.ref = "firebaseFirestoreKtx" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

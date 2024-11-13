@@ -1,5 +1,7 @@
 package co.edu.unab.santiagoarias.busunab.screens.login
 
+import android.content.Context
+import android.content.SharedPreferences
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -9,25 +11,50 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.google.firebase.auth.FirebaseAuth
+
+fun saveUserSession(context: Context, isLoggedIn: Boolean) {
+    val sharedPreferences: SharedPreferences = context.getSharedPreferences("UserSession", Context.MODE_PRIVATE)
+    val editor = sharedPreferences.edit()
+    editor.putBoolean("isLoggedIn", isLoggedIn)
+    editor.apply()
+}
+
+fun isUserLoggedIn(context: Context): Boolean {
+    val sharedPreferences: SharedPreferences = context.getSharedPreferences("UserSession", Context.MODE_PRIVATE)
+    return sharedPreferences.getBoolean("isLoggedIn", false)
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(
-    onNavigateBack: () -> Unit,aaaa
+    navController: NavController,
+    onNavigateBack: () -> Unit,
     onRegisterClick: () -> Unit,
-    onLoginSuccess: () -> Unit // Nueva función para navegar al éxito del login
+    onLoginSuccess: () -> Unit
 ) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var errorMessage by remember { mutableStateOf<String?>(null) }
     val auth: FirebaseAuth = FirebaseAuth.getInstance()
+    val context = LocalContext.current
+
+    if (isUserLoggedIn(context)) {
+        LaunchedEffect(Unit) {
+            onLoginSuccess()
+            navController.navigate("routeone_screen") {
+                popUpTo("login_screen") { inclusive = true }
+            }
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -51,104 +78,106 @@ fun LoginScreen(
 
         Spacer(modifier = Modifier.height(40.dp))
 
-        // Título
-        Text(
-            text = "Ingresar",
-            color = Color.White,
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Bold
-        )
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        Text(
-            text = "Ingresa para continuar",
-            color = Color.LightGray,
-            fontSize = 14.sp,
-            textAlign = TextAlign.Center
-        )
-
-        Spacer(modifier = Modifier.height(30.dp))
-
-        // Campo de entrada de correo electrónico
-        TextField(
-            value = email,
-            onValueChange = { email = it },
-            label = { Text("Correo Electrónico") },
-            colors = TextFieldDefaults.textFieldColors(
-                containerColor = Color(0xFF2D2D5E),
-                focusedLabelColor = Color.White,
-                unfocusedLabelColor = Color.LightGray
-            ),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
-            modifier = Modifier.fillMaxWidth()
-        )
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // Campo de entrada de contraseña
-        TextField(
-            value = password,
-            onValueChange = { password = it },
-            label = { Text("Contraseña") },
-            visualTransformation = PasswordVisualTransformation(),
-            colors = TextFieldDefaults.textFieldColors(
-                containerColor = Color(0xFF2D2D5E),
-                focusedLabelColor = Color.White,
-                unfocusedLabelColor = Color.LightGray
-            ),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-            modifier = Modifier.fillMaxWidth()
-        )
-
-        Spacer(modifier = Modifier.height(30.dp))
-
-        // Mostrar mensaje de error si ocurre un problema en la autenticación
-        errorMessage?.let { message ->
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            // Título
             Text(
-                text = message,
-                color = Color.Red,
+                text = "Ingresar",
+                color = Color.White,
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Bold
+            )
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Text(
+                text = "Ingresa para continuar",
+                color = Color.LightGray,
                 fontSize = 14.sp,
-                modifier = Modifier.padding(bottom = 16.dp)
+                textAlign = TextAlign.Center
+            )
+
+            Spacer(modifier = Modifier.height(30.dp))
+
+            // Campo de entrada de correo electrónico
+            TextField(
+                value = email,
+                onValueChange = { email = it },
+                label = { Text("Correo Electrónico") },
+                colors = TextFieldDefaults.textFieldColors(
+                    containerColor = Color(0xFF2D2D5E),
+                    focusedLabelColor = Color.White,
+                    unfocusedLabelColor = Color.White
+
+                ),
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+                modifier = Modifier.fillMaxWidth()
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Campo de entrada de contraseña
+            TextField(
+                value = password,
+                onValueChange = { password = it },
+                label = { Text("Contraseña") },
+                visualTransformation = PasswordVisualTransformation(),
+                colors = TextFieldDefaults.textFieldColors(
+                    containerColor = Color(0xFF2D2D5E),
+                    focusedLabelColor = Color.White,
+                    unfocusedLabelColor = Color.White
+                ),
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+                modifier = Modifier.fillMaxWidth()
+            )
+
+            Spacer(modifier = Modifier.height(30.dp))
+
+            // Mostrar mensaje de error si ocurre un problema en la autenticación
+            errorMessage?.let { message ->
+                Text(
+                    text = message,
+                    color = Color.Red,
+                    fontSize = 14.sp,
+                    modifier = Modifier.padding(bottom = 16.dp)
+                )
+            }
+
+            // Botón de inicio de sesión
+            Button(
+                onClick = {
+                    auth.signInWithEmailAndPassword(email, password)
+                        .addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                saveUserSession(context, true)
+                                onLoginSuccess()
+                                navController.navigate("routeone_screen") {
+                                    popUpTo("login_screen") { inclusive = true }
+                                }
+                            } else {
+                                errorMessage = "Error de autenticación: ${task.exception?.localizedMessage}"
+                            }
+                        }
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(50.dp),
+                colors = ButtonDefaults.buttonColors(Color(0xFF4B4BFF))
+            ) {
+                Text(text = "Ingresar", color = Color.White, fontSize = 18.sp)
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Texto para registrarse
+            Text(
+                text = "¿Aún no tienes cuenta? Regístrate!",
+                color = Color.LightGray,
+                modifier = Modifier.clickable { onRegisterClick() }
             )
         }
-
-        // Botón de inicio de sesión
-        Button(
-            onClick = {
-                auth.signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            onLoginSuccess() // Llamar a esta función si el inicio de sesión es exitoso
-                        } else {
-                            errorMessage = "Error de autenticación: ${task.exception?.localizedMessage}"
-                        }
-                    }
-            },
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(50.dp),
-            colors = ButtonDefaults.buttonColors(Color(0xFF4B4BFF))
-        ) {
-            Text(text = "Ingresar", color = Color.White, fontSize = 18.sp)
-        }
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // Texto de recuperación de contraseña
-        Text(
-            text = "¿Olvidaste tu contraseña? Recupérala!",
-            color = Color.LightGray,
-            modifier = Modifier.clickable { /* Acción de recuperar contraseña */ }
-        )
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        // Texto para registrarse
-        Text(
-            text = "¿Aún no tienes cuenta? Regístrate!",
-            color = Color.LightGray,
-            modifier = Modifier.clickable { onRegisterClick() }
-        )
     }
 }

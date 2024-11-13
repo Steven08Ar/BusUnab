@@ -27,7 +27,7 @@ fun SplashScreen(navController: NavController? = null) {
     LaunchedEffect(Unit) {
         delay(4000)
         // Solo navega si navController no es nulo
-        navController?.navigate("login_screen") {
+        navController?.navigate("home_screen") {
             // Limpiar la pila para evitar volver a la pantalla de carga
             popUpTo("splash_screen") { inclusive = true }
         }

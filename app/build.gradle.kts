@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -61,6 +62,7 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.androidx.navigation.runtime.ktx)
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.firebase.firestore.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -75,7 +77,7 @@ dependencies {
 
     //firabase
     implementation(platform("com.google.firebase:firebase-bom:33.5.1"))
-    implementation(platform("com.google.firebase:firebase-bom:33.4.0"))
+    implementation(platform("com.google.firebase:firebase-bom:33.5.1"))
 
     implementation("com.google.firebase:firebase-auth")
 
@@ -84,7 +86,5 @@ dependencies {
     implementation(libs.coil.gif)
 
     //Map
-    implementation(libs.maps.compose)
-    implementation(libs.play.services.maps)
-
+    implementation(libs.play.services.maps.v1800)
 }
